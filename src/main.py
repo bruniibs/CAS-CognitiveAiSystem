@@ -1,3 +1,4 @@
+from llm import ask_llm
 
 print("Cognitive Assistant System starting...")
 
@@ -19,4 +20,5 @@ while True:
     elif user_input.lower() == "help":
         print("Available commands: \n- help\n- exit/quit")
     else:
-        print(f"You said: '{user_input}'")
+        response=ask_llm(user_input)
+        print(f"CAS: {response}")
