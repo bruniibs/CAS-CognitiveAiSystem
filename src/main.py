@@ -8,6 +8,10 @@ if not name:
     name = "Miss"
 print(f"Hello, {name}!\nHow could I assist you today?")
 
+# Initialize conversation history LIST
+conversation_history = []
+previous_interaction_id = None
+
 # loop for user commands. ignores empty commands requiring an actual input suggesting help
 while True:
     user_input = input("> ").strip()
@@ -20,5 +24,13 @@ while True:
     elif user_input.lower() == "help":
         print("Available commands: \n- help\n- exit/quit")
     else:
-        response=ask_llm(user_input)
+        response, previous_interaction_id = ask_llm(user_input, previous_interaction_id)
+        conversation_history.append({
+            "role": "user",
+            "content": user_input
+        })
+        conversation_history.append({
+            "role": "model",
+            "content": response
+        })
         print(f"CAS: {response}")
