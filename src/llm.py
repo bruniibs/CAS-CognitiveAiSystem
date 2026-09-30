@@ -14,9 +14,10 @@ if not api_key:
 
 client = genai.Client(api_key=api_key)
 
-def ask_llm(message):
+def ask_llm(message, previous_interaction_id=None):
     interaction = client.interactions.create(
         model="gemini-3.8-flash",
-        input=message
+        input=message,
+        previous_interaction_id=previous_interaction_id
     )
-    return interaction.output_text
+    return interaction.output_text, interaction.id
