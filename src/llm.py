@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from google import genai
+from prompts import SYSTEM_INSTRUCTION
 
 load_dotenv()
 
@@ -15,9 +16,13 @@ if not api_key:
 client = genai.Client(api_key=api_key)
 
 def ask_llm(message, previous_interaction_id=None):
-    interaction = client.interactions.create(
-        model="gemini-3.8-flash",
-        input=message,
-        previous_interaction_id=previous_interaction_id
+    try:
+        interaction = client.interactions.create(
+                model="gemini-3.8-flash",
+                input=message,
+                system_instruction=SYSTEM_INSTRUCTION,
+                previous_interaction_id=previous_interaction_id
+    except Exception as error:
+        print(f"Error communicating with Gemini: {error}")
     )
     return interaction.output_text, interaction.id
