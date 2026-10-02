@@ -22,7 +22,8 @@ def ask_llm(message, previous_interaction_id=None):
                 input=message,
                 system_instruction=SYSTEM_INSTRUCTION,
                 previous_interaction_id=previous_interaction_id
+        )
     except Exception as error:
         print(f"Error communicating with Gemini: {error}")
-    )
+        
     return interaction.output_text, interaction.id
