@@ -16,7 +16,7 @@ if not api_key:
 client = genai.Client(api_key=api_key)
 
 def ask_llm(message, previous_interaction_id=None):
-    try:
+    try:  
         interaction = client.interactions.create(
                 model="gemini-3.8-flash",
                 input=message,
@@ -25,5 +25,6 @@ def ask_llm(message, previous_interaction_id=None):
         )
     except Exception as error:
         print(f"Error communicating with Gemini: {error}")
+        return "Sorry I couldn't contact Gemini. Please try again.", previous_interaction_id, False
         
-    return interaction.output_text, interaction.id
+    return interaction.output_text, interaction.id, True
