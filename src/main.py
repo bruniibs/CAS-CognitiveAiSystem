@@ -27,12 +27,12 @@ while True:
         response, previous_interaction_id, success = ask_llm(user_input, previous_interaction_id)
         # just save the convo history if the response is successful (TRUE)
         if success: 
-            (conversation_history.append({
+            conversation_history.append({
                 "role": "user",
                 "content": user_input
-        })
+            })
             conversation_history.append({
                 "role": "model",
                 "content": response
-        }))
+            })
         print(f"CAS: {response}")
